@@ -12,11 +12,10 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    public wsService:WebsocketService,
-    public chatService: ChatService
+    public wsService:WebsocketService
   ){}
 
   ngOnInit(): void {
-    this.chatService.sendMessage('Hola desde angular')
+    
   }
 }
