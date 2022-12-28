@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -29,5 +30,9 @@ export class WebsocketService {
    emit( evento: string, payload?:any, callback?: Function){
     console.log('Emitiendo ', evento);
       this.socket.emit( evento, payload, callback);
+   }
+
+   listen( evento: string){
+    return this.socket.fromEvent(evento)
    }
 }
