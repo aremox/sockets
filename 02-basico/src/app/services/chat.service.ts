@@ -6,11 +6,11 @@ import { WebsocketService } from './websocket.service';
 })
 export class ChatService {
 
-  constructor(public wsService: WebsocketService) { }
+  constructor(private wsService: WebsocketService,  ) { }
 
   sendMessage(mensaje: string){
     const payload = {
-      de: 'Fernando',
+      de: this.wsService.getUsuario().nombre,
       cuerpo: mensaje
     };
     this.wsService.emit('mensaje', payload);
@@ -18,5 +18,9 @@ export class ChatService {
 
   getMenssages(){
     return this.wsService.listen('mensaje-nuevo')
+  }
+
+  getMenssagesPrivate(){
+    return this.wsService.listen('mensaje-privado');
   }
 }

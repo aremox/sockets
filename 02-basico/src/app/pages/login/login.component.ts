@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { WebsocketService } from '../../services/websocket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +11,14 @@ export class LoginComponent {
 
   nombre:string = '';
 
-  constructor( private websocketService:WebsocketService){}
+  constructor( private websocketService:WebsocketService, private router:Router){}
 
   ingresar(){
     this.websocketService.loginWS(this.nombre)
+    .then(()=>{
+      this.router.navigateByUrl('/mensajes');
+    });
+
   }
 
 }
