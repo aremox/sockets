@@ -3,6 +3,7 @@ import { Socket } from 'ngx-socket-io';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Usuario } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class WebsocketService {
 
   public socketStatus=false;
+  public usuario!: Usuario; 
 
   constructor(private socket: Socket) { 
     this.checkStatus();
@@ -34,5 +36,13 @@ export class WebsocketService {
 
    listen( evento: string){
     return this.socket.fromEvent(evento)
+   }
+
+   loginWS( nombre: string){
+    console.log('Configurando ', nombre);
+
+    this.emit('configurar-usuario', {nombre}, (resp: any)=>{
+      console.log(resp)
+    })
    }
 }
