@@ -11,6 +11,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   texto: string = '';
   mensajesSubscription!: Subscription;
+  mensajesSubscriptionPrivado!: Subscription;
   elemento!: HTMLElement | null;
 
   mensajes: any[] = [];
@@ -26,6 +27,18 @@ export class ChatComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.elemento!.scrollTop = this.elemento!.scrollHeight;
         }, 50);
+    })
+    this.suscribirseMensajeProvado()
+  }
+
+  suscribirseMensajeProvado(){
+    this.mensajesSubscriptionPrivado = this.chatService.getMenssagesPrivate().subscribe( msg => {
+      console.log(msg)
+      this.mensajes.push( msg)
+   
+        setTimeout(() => {
+          this.elemento!.scrollTop = this.elemento!.scrollHeight;
+        }, 50);
     
       
     })
@@ -33,6 +46,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mensajesSubscription.unsubscribe();    
+   // this.mensajesSubscriptionPrivado.unsubscribe();
   }
 
   enviar(){
