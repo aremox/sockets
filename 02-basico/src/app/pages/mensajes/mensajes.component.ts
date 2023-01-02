@@ -10,4 +10,8 @@ export class MensajesComponent {
 
   constructor( public websocketService:WebsocketService){}
 
+
+  salir(){
+    this.websocketService.logOutWS();
+  }
 }
